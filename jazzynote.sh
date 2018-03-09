@@ -11,6 +11,7 @@ Options:
     -a AUTHOR         : set author name.
     -u AUTHOR_URL     : set author url.
     -v MODULE_VERSION : set module version.
+    -l                : leave build folder.
     -m MODULE         : set module name.
     -h                : print this.
     (when -m is omitted, set execution folder name to module name.)
@@ -31,13 +32,15 @@ author="(default user name)"
 authorurl="(default url)"
 moduleversion="0.00"
 modulename=""
+removeBuild=true
 
 # option
-while getopts a:hm:u:v: OPT
+while getopts a:hlm:u:v: OPT
 do
   case $OPT in
-  	  a ) author=$OPTARG ;;
-  	  u ) authorurl=$OPTARG ;;
+      a ) author=$OPTARG ;;
+      l ) removeBuild=false ;;
+      u ) authorurl=$OPTARG ;;
       v ) moduleversion=$OPTARG ;;
       h ) usage ;;
       m ) modulename=$OPTARG usecurrent=false ;;
@@ -55,3 +58,10 @@ fi
 
 # jazzy 実行
 jazzy --min-acl internal --clean --output document --author ${author} --author_url ${authorurl} --theme 'apple' --module-version 0.00 --module ${modulename}
+
+if ${removeBuild}; then
+  buildpath="./build"
+  if [ -e ${buildpath} ]; then
+    rm -rf ${buildpath}
+  fi
+fi

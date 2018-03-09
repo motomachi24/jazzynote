@@ -15,6 +15,7 @@ jazzynote [options]
 |                   |                     |
 | :---------------- | :------------------ |
 | -h                | print this.         |
+| -l                | leave build folder. |
 | -a AUTHOR         | set author name.    |
 | -u AUTHOR_URL     | set author url.     |
 | -v MODULE_VERSION | set module version. |
